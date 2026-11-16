@@ -289,12 +289,19 @@
         ]);
     }
 
+    function showGenerationTab(tab) {
+        const buttons = Array.from(app().querySelectorAll('#' + tab + '_extra_tabs > div.tab-nav > button'));
+        const btn = buttons.find(function (b) { return b.textContent.trim() === 'Generation'; }) || buttons[0];
+        if (btn) btn.click();
+    }
+
     function onGenerate(tab) {
         if (!requireSelection()) return;
         const cb = app().querySelector('#ckptmgr_enable_' + tab + ' input[type=checkbox]');
         const gen = app().getElementById(tab + '_generate');
         if (!cb || !gen) return;
         syncAll();
+        showGenerationTab(tab);
         cb.checked = true;
         cb.dispatchEvent(new Event('input', {bubbles: true}));
         cb.dispatchEvent(new Event('change', {bubbles: true}));
