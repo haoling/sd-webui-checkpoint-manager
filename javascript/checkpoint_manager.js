@@ -56,6 +56,8 @@
                 const cb = card.querySelector('.ckptmgr-check input');
                 const on = t !== null && selected.has(t);
                 if (cb && cb.checked !== on) cb.checked = on;
+                const lb = card.querySelector('.ckptmgr-check');
+                if (lb) lb.classList.toggle('ckptmgr-on', on);
                 card.classList.toggle('ckptmgr-selected', on);
             });
 
@@ -82,6 +84,10 @@
             const cb = document.createElement('input');
             cb.type = 'checkbox';
             label.appendChild(cb);
+            const mark = document.createElement('span');
+            mark.className = 'ckptmgr-mark';
+            mark.textContent = '✓';
+            label.appendChild(mark);
             // カード本体のクリック (= Checkpoint切替) を発火させない
             ['click', 'mousedown', 'mouseup'].forEach(function (ev) {
                 label.addEventListener(ev, function (e) {
