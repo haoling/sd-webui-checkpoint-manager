@@ -1,0 +1,96 @@
+.ckptmgr-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 4px 8px;
+}
+.ckptmgr-toolbar .ckptmgr-spacer { flex: 1 1 auto; }
+.ckptmgr-count { font-size: 0.85em; opacity: 0.8; margin: 0 6px; }
+.ckptmgr-btn { cursor: pointer; padding: 4px 10px !important; min-width: 0 !important; }
+.ckptmgr-primary { border-color: var(--primary-500, #f97316) !important; }
+.ckptmgr-danger { color: #ef4444 !important; }
+
+/* カード左上のチェックボックス (標準の描画はテーマで見えなくなるので自前で描く) */
+.card .ckptmgr-check {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    z-index: 20;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.55);
+    border: 2px solid #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+}
+.card .ckptmgr-check input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+.card .ckptmgr-check .ckptmgr-mark { display: none; pointer-events: none; }
+.card .ckptmgr-check.ckptmgr-on {
+    background: var(--primary-500, #f97316);
+    border-color: var(--primary-500, #f97316);
+}
+.card .ckptmgr-check.ckptmgr-on .ckptmgr-mark { display: block; }
+.card.ckptmgr-selected::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 4px solid var(--primary-500, #f97316);
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+    z-index: 15;
+}
+
+/* ダイアログ */
+.ckptmgr-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ckptmgr-dialog {
+    background: var(--background-fill-primary, #1f2937);
+    color: var(--body-text-color, #e5e7eb);
+    border: 1px solid var(--border-color-primary, #4b5563);
+    border-radius: 10px;
+    padding: 16px 20px;
+    width: min(560px, 92vw);
+    max-height: 85vh;
+    overflow: auto;
+}
+.ckptmgr-dialog h3 { margin: 0 0 10px; font-size: 1.1em; }
+.ckptmgr-dialog p { margin: 8px 0; }
+.ckptmgr-note { font-size: 0.85em; opacity: 0.75; }
+.ckptmgr-error { color: #ef4444; }
+.ckptmgr-list { max-height: 160px; overflow: auto; margin: 6px 0; padding-left: 20px; font-size: 0.9em; }
+.ckptmgr-input {
+    display: block;
+    width: 100%;
+    margin: 6px 0;
+    padding: 6px 8px;
+    background: var(--input-background-fill, #111827);
+    color: inherit;
+    border: 1px solid var(--border-color-primary, #4b5563);
+    border-radius: 6px;
+}
+.ckptmgr-radio { display: block; margin: 6px 0; cursor: pointer; }
+.ckptmgr-buttons { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
