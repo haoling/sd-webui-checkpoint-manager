@@ -60,7 +60,9 @@
             });
 
             const label = app().querySelector('#' + tab + '_checkpoints_pane .ckptmgr-count');
-            if (label) label.textContent = selected.size + ' 件選択中';
+            // 同じ値でも textContent への代入は DOM 変更扱いになり、onUiUpdate が無限に再発火するため差分があるときだけ書く
+            const countText = selected.size + ' 件選択中';
+            if (label && label.textContent !== countText) label.textContent = countText;
         });
     }
 
@@ -350,8 +352,19 @@
         syncAll();
     }
 
+    // UI 更新のたびに走るので、まとめて少し間引いて実行する
+    let scheduled = false;
+    function scheduleSetup() {
+        if (scheduled) return;
+        scheduled = true;
+        setTimeout(function () {
+            scheduled = false;
+            setup();
+        }, 150);
+    }
+
     if (typeof onUiUpdate === 'function') {
-        onUiUpdate(setup);
+        onUiUpdate(scheduleSetup);
     } else {
         setInterval(setup, 1000);
     }
